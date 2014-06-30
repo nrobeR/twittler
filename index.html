@@ -15,10 +15,19 @@
           var index = streams.home.length-1;
           while(index >= streams.home.length-11){
             var tweet = streams.home[index];
+            var $tweetUser = $('<div></div>');
             var $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + tweet.created_at);
-            $tweet.appendTo($(".tweets"));
-            // $tweet.appendTo($body);
+            var $tweetTime = $('<div></div>');
+            $tweet.text(tweet.message);
+            // $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + tweet.created_at);
+            // $tweet.appendTo($(".tweets"));
+            $tweetUser.text('@' + tweet.user);
+            $tweetTime.text(tweet.created_at);
+            $tweetUser.css('font-family','Arial');
+            $tweetTime.css('font-size','12px');
+            $tweetUser.appendTo($(".tweets"));
+            $tweet.appendTo($tweetUser);
+            $tweetTime.appendTo($tweet);
             index -= 1;
           }
         }
@@ -32,10 +41,9 @@
 
     </script>
 
-    <h2>Twittler</h2>
+    <h2 style="color: blue; font-size: 30px; font-family: Arial">Twittler</h2>
     <button class="refresh">Refresh</button>
     <ul class="tweets">
-
     </ul>
   </body>
 </html>
