@@ -11,11 +11,11 @@
         // var $body = $('body');
         // $body.html('');
         var showtweets = function(){
-          $(".tweets").empty();
+          $("#tweets").empty();
           var index = streams.home.length-1;
           while(index >= streams.home.length-11){
             var tweet = streams.home[index];
-            var $tweetUser = $('<div></div>');
+            var $tweetUser = $('<button></button>');
             var $tweet = $('<div></div>');
             var $tweetTime = $('<div></div>');
             $tweet.text(tweet.message);
@@ -25,16 +25,22 @@
             $tweetTime.text(tweet.created_at);
             $tweetUser.css('font-family','Arial');
             $tweetTime.css('font-size','12px');
-            $tweetUser.appendTo($(".tweets"));
-            $tweet.appendTo($tweetUser);
-            $tweetTime.appendTo($tweet);
+            $tweetUser.appendTo($("#tweets"));
+            // $tweet.appendTo($tweetUser);
+            // $tweetTime.appendTo($tweet);
+            $tweet.appendTo($("#tweets"));
+            $tweetTime.appendTo($("#tweets"));
+
+            $tweetUser.on('click',function(){
+              alert('hello');
+            })
             index -= 1;
           }
         }
 
         showtweets();
 
-        $('button').on('click',function(event){
+        $('#refresh').on('click',function(event){
           showtweets();
         });
       });
@@ -42,8 +48,8 @@
     </script>
 
     <h2 style="color: blue; font-size: 30px; font-family: Arial">Twittler</h2>
-    <button class="refresh">Refresh</button>
-    <ul class="tweets">
+    <button id="refresh">Refresh</button>
+    <ul id="tweets">
     </ul>
   </body>
 </html>
