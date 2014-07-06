@@ -45,20 +45,21 @@
         $('.user').on('click',function(){
           // alert($(this).closest('.user').text());
           $(this).closest('.tweet').find('li').remove();
-          var username = $(this).closest('.user').text();
-          var $timeline = $('<ul class=timeline></ul>');
+          var username = $(this).closest('.user').text().slice(1);
+          var $timeline = $('<ul></ul>');
           var index = streams.home.length-1;
-          var $temp = $('<li></li>');
           while(index >= 0){
             var t = streams.home[index];
-            if(t.user==username){
+            var $temp = $('<li></li>');
+            if(t.user===username){
               $temp.text(t.message + " @ " + t.created_at);
-              $temp.appendTo($('.timeline'));
+              $temp.appendTo($timeline);
             }
             index -= 1;
           }
+          // $('<li>hello</li>').appendTo($timeline);
           // $('<li>hello</li>').insertAfter($(this).closest('.user'));
-          $('.timeline').insertAfter($(this).closest('.user'));
+          $timeline.insertAfter($(this).closest('.user'));
         });
 
         $('#refresh').on('click',function(event){
