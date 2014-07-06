@@ -15,30 +15,51 @@
           var index = streams.home.length-1;
           while(index >= streams.home.length-11){
             var tweet = streams.home[index];
-            var $tweetUser = $('<button></button>');
-            var $tweet = $('<div></div>');
+            var $tweet = $('<ul class=tweet></ul>');
+            var $tweetUser = $('<button class="user"></button>');
+            var $message = $('<div></div>');
             var $tweetTime = $('<div></div>');
-            $tweet.text(tweet.message);
+            $message.text(tweet.message);
             // $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + tweet.created_at);
             // $tweet.appendTo($(".tweets"));
             $tweetUser.text('@' + tweet.user);
             $tweetTime.text(tweet.created_at);
             $tweetUser.css('font-family','Arial');
             $tweetTime.css('font-size','12px');
-            $tweetUser.appendTo($("#tweets"));
+            $tweetUser.appendTo($(".tweet"));
             // $tweet.appendTo($tweetUser);
             // $tweetTime.appendTo($tweet);
+            $message.appendTo($(".tweet"));
+            $tweetTime.appendTo($(".tweet"));
             $tweet.appendTo($("#tweets"));
-            $tweetTime.appendTo($("#tweets"));
-
-            $tweetUser.on('click',function(){
-              alert('hello');
-            })
+            // if(timeline[tweet.user]===undefined) timeline[tweet.user]=[];
+            // else{
+            //   timeline[tweet.user].push(tweet.user + "  @ " + tweet.created_at);
+            // }
             index -= 1;
           }
         }
 
         showtweets();
+
+        $('.user').on('click',function(){
+          // alert($(this).closest('.user').text());
+          $(this).closest('.tweet').find('li').remove();
+          var username = $(this).closest('.user').text();
+          var $timeline = $('<ul class=timeline></ul>');
+          var index = streams.home.length-1;
+          var $temp = $('<li></li>');
+          while(index >= 0){
+            var t = streams.home[index];
+            if(t.user==username){
+              $temp.text(t.message + " @ " + t.created_at);
+              $temp.appendTo($('.timeline'));
+            }
+            index -= 1;
+          }
+          // $('<li>hello</li>').insertAfter($(this).closest('.user'));
+          $('.timeline').insertAfter($(this).closest('.user'));
+        });
 
         $('#refresh').on('click',function(event){
           showtweets();
